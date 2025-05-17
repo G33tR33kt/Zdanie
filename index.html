@@ -1,0 +1,26 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Scraper</title>
+</head>
+<body>
+  <h1>Vyhledávač</h1>
+  <form id="searchForm">
+    <input type="text" id="query" placeholder="Zadej hledaný výraz" required />
+    <button type="submit">Vyhledat</button>
+  </form>
+  <pre id="results"></pre>
+
+  <script>
+    document.getElementById("searchForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const query = document.getElementById("query").value;
+      const res = await fetch("/search?q=" + encodeURIComponent(query));
+      const data = await res.json();
+      document.getElementById("results").textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
